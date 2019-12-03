@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour
     private float jumpPressure;
     private float minJump;
     private float maxJumpPressure;
+    private Rigidbody rb2d;
+    private Transform transf;
     
 
 
@@ -22,17 +24,49 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        transf = GetComponent<Transform>();
         somPulo = GetComponent<AudioSource>();
         transform.tag = "Player";
         cameraFPS = GetComponentInChildren(typeof(Camera)).transform.gameObject;
         rotacaoOriginalCamera = cameraFPS.transform.localRotation;
         controller = GetComponent<CharacterController>();
-
+        onGround = true;
+        jumpPressure = 0f;
+        minJump = 2f;
+        maxJumpPressure = 10f;
+        rb2d = GetComponent<Rigidbody>();
+        
     
     }
 
     void Update()
     {
+        /*
+        if (onGround)
+        {
+            if (Input.GetButton("Jump"))
+            {
+                if(jumpPressure < maxJumpPressure)
+                {
+                    jumpPressure += Time.deltaTime * 10f;
+                }
+                else
+                {
+                    jumpPressure = maxJumpPressure;
+                }
+            }
+            else
+            {
+                if(jumpPressure > 0f)
+                {
+                    jumpPressure = jumpPressure + minJump;
+                    rb2d.velocity = new Vector3(jumpPressure / 10f, jumpPressure, 0f);
+                    jumpPressure = 0f;
+                    onGround = false;
+                }
+            }
+        }
+        */
 
 
         Vector3 direcaoFrente = new Vector3(cameraFPS.transform.forward.x, 0, cameraFPS.transform.forward.z);
@@ -53,6 +87,7 @@ public class PlayerController : MonoBehaviour
         {
             moveDirection = new Vector3(direcFinal.x, 0, direcFinal.z);
             moveDirection *= 2.0f;
+            
             if (Input.GetButton("Jump"))
             {
                 somPulo.Play();
@@ -86,6 +121,17 @@ public class PlayerController : MonoBehaviour
         if (angulo > 360F) { angulo -= 360F; }
         return Mathf.Clamp(angulo, min, max);
     }
+
+
+    /*
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag.Equals("ground"))
+        {
+            onGround = true;
+        }
+    }
+    */
 
 
 
