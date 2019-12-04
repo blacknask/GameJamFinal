@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     Quaternion rotacaoOriginalCamera;
     Vector3 moveDirection = Vector3.zero;
     CharacterController controller;
+    public float vel;
     float rotacaoX = 0.0f, rotacaoY = 0.0f;
     public AudioSource somPulo;
     private bool onGround;
@@ -35,6 +36,7 @@ public class PlayerController : MonoBehaviour
         minJump = 2f;
         maxJumpPressure = 10f;
         rb2d = GetComponent<Rigidbody>();
+        vel = 2f;
         
     
     }
@@ -91,13 +93,25 @@ public class PlayerController : MonoBehaviour
             if (Input.GetButton("Jump"))
             {
                 somPulo.Play();
-                moveDirection.y = 9.0f;
+                moveDirection.y = 9.5f;
             }
             
         }
         moveDirection.y -= 20.0f * Time.deltaTime;
         controller.Move(moveDirection * Time.deltaTime);
         CameraPrimeiraPessoa();
+
+        if(Input.GetKey(KeyCode.LeftShift) && moveDirection.x < 3.0f)
+        {
+            vel += 1f;
+        }
+        else
+        {
+            if (!Input.GetKey(KeyCode.LeftShift))
+            {
+                vel = 2f;
+            }
+        }
 
     }
 
