@@ -88,12 +88,12 @@ public class PlayerController : MonoBehaviour
         if (controller.isGrounded)
         {
             moveDirection = new Vector3(direcFinal.x, 0, direcFinal.z);
-            moveDirection *= 2.0f;
-            
+            moveDirection *= 3.0f;
+           
             if (Input.GetButton("Jump"))
             {
                 somPulo.Play();
-                moveDirection.y = 9.5f;
+                moveDirection.y = 8.5f;
             }
             
         }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GemController : MonoBehaviour
 {
@@ -25,6 +26,8 @@ public class GemController : MonoBehaviour
             GetComponent<AudioSource>().Play();
             GetComponent<Renderer>().enabled = false;
             GetComponent<CapsuleCollider>().enabled = false;
+
+            SceneManager.LoadScene("SampleScene");
         }
     }
 }
